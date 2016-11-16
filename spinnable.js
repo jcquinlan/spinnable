@@ -36,15 +36,15 @@ class Spinnable {
     }
 
     renderSpinner() {
-        this.el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" data-guid="${ this.guid }" version="1.1" width="${ this.size }" height="${ this.size }" viewBox="0 0 400 400" preserveAspectRatio>
-            <circle cx="${ this.size / 2 }" cy="${ this.size / 2 }" r="180" fill="#222222"/>
+        this.el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" data-guid="${ this.guid }" style="display: block; margin: 0 auto;" version="1.1" width="${ this.size }" height="${ this.size }" viewBox="0 0 ${ this.size } ${ this.size }" preserveAspectRatio="xMaxYMax meet">
+            <circle cx="${ this.size / 2 }" cy="${ this.size / 2 }" r="${ this.size / 2 - 20}" fill="#222222"/>
             <g transform="translate(${ this.size / 2 }, ${ this.size / 2 })">
                 <g class="spinner-group" stroke="#000" stroke-width="0" transform="rotate(${ this.rotation })">
 
                 </g>
             </g>
             <g id="spinner-board"></g>
-            <path id="spinner-arrow" d="M 195 200 L 195 70 L 188 70 L 200 55 L 212 70 L 205 70 205 200 Z" fill="#EEEEEE" stroke="#222222" style="stroke-width:2px"/>
+            <path id="spinner-arrow" d="M ${this.size/2-5} ${this.size/2} L ${this.size/2-5} 70 L ${this.size/2-12} 70 L ${this.size/2} 55 L ${this.size/2+12} 70 L ${this.size/2+5} 70 ${this.size/2+5} ${this.size/2} Z" fill="#EEEEEE" stroke="#222222" style="stroke-width:2px"/>
             <circle cx="${ this.size / 2 }" cy="${ this.size / 2 }" r="18" fill="#444444" stroke="#222222" style="stroke-width:2px"/>
             <circle cx="${ this.size / 2 }" cy="${ this.size / 2 }" r="9" fill="#666666" stroke="#222222" style="stroke-width:2px"/>
         </svg>`;
@@ -69,20 +69,21 @@ class Spinnable {
     parseData() {
       let endAngle = 0
       let startAngle = 0
+      let percentOfWhole = 1 / this.data.length;
       this.data = this.data.map((datum, index) => {
         startAngle = endAngle
-        endAngle = startAngle + (360 * (1 / this.data.length))
+        endAngle = startAngle + (360 * percentOfWhole)
 
-        let x1, x2, y1, y2
+        let x1, x2, y1, y2;
 
-        x1 = parseInt(Math.round(195 * Math.cos(Math.PI * 0 / 180)))
-        y1 = parseInt(Math.round(195 * Math.sin(Math.PI * 0 / 180)))
+        x1 = parseInt(Math.round((this.size / 2) * Math.cos(Math.PI * 0 / 180)))
+        y1 = parseInt(Math.round((this.size / 2) * Math.sin(Math.PI * 0 / 180)))
 
-        x2 = parseInt(Math.round(195 * Math.cos(Math.PI * (360 * (1 / this.data.length)) / 180)))
-        y2 = parseInt(Math.round(195 * Math.sin(Math.PI * (360 * (1 / this.data.length)) / 180)))
+        x2 = parseInt(Math.round((this.size / 2) * Math.cos(Math.PI * (360 * percentOfWhole) / 180)))
+        y2 = parseInt(Math.round((this.size / 2) * Math.sin(Math.PI * (360 * percentOfWhole) / 180)))
 
-        let d = 'M0,0  L' + x1 + ',' + y1 + '  A195,195 0 ' +
-        (((360 * (1 / this.data.length)) - 0 > 180) ? 1 : 0) + ',1 ' + x2 + ',' + y2 + ' z'
+        let d = 'M0,0  L' + x1 + ',' + y1 + `  A${ this.size / 2 },${ this.size / 2 } 0 ` +
+        (((360 * percentOfWhole) - 0 > 180) ? 1 : 0) + ',1 ' + x2 + ',' + y2 + ' z'
 
         return { datum, startAngle, endAngle, d, color: this.colors[index] }
       })
