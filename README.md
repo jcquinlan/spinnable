@@ -16,4 +16,4 @@ let options = { data: [1, 2, 3'], colors: ['red', 'blue', green']};
 
 let spinner = new Spinnable(el, options);
 ```
-** Done.**
+Done.
