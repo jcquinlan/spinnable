@@ -17,6 +17,9 @@ class Spinnable {
         this.stroke = args.stroke;
         this.borderSize = args.borderSize || 0;
         this.borderColor = args.borderColor || 'transparent';
+        this.centerCircleSize = args.centerCircleSize || 20;
+        this.centerCircleColor = args.centerCircleColor || '#fff';
+        this.arrowColor = args.arrowColor || '#fff';
         this.afterSelected = args.afterSelected || function(){};
         this.afterAllSelected = args.afterAllSelected || function(){};
         this.trueSize = this.size + this.borderSize;
@@ -53,13 +56,15 @@ class Spinnable {
                     </g>
                 </g>
                 <g id="spinner-board"></g>
-                <path id="spinner-arrow" d="M ${this.trueSize/2-5} ${this.trueSize/2} L ${this.trueSize/2-5} ${ this.trueSize/4} L ${this.trueSize/2-12} ${ this.trueSize/4} L ${this.trueSize/2} ${this.trueSize/4-20} L ${this.trueSize/2+12} ${ this.trueSize/4} L ${this.trueSize/2+5} ${ this.trueSize/4} ${this.trueSize/2+5} ${this.trueSize/2} Z" fill="#EEEEEE" stroke="#222222" style="stroke-width:2px"/>
-                <circle cx="${ this.trueSize / 2 }" cy="${ this.trueSize / 2 }" r="18" fill="#444444" stroke="#222222" style="stroke-width:2px"/>
+                <path id="spinner-arrow" d="M ${this.trueSize/2-5} ${this.trueSize/2} L ${this.trueSize/2-5} ${ this.trueSize/4} L ${this.trueSize/2-12} ${ this.trueSize/4} L ${this.trueSize/2} ${this.trueSize/4-20} L ${this.trueSize/2+12} ${ this.trueSize/4} L ${this.trueSize/2+5} ${ this.trueSize/4} ${this.trueSize/2+5} ${this.trueSize/2} Z" fill="${ this.arrowColor }" stroke="#222222" style="stroke-width:2px"/>
+                <circle id="spinner-center" cx="${ this.trueSize / 2 }" cy="${ this.trueSize / 2 }" r="${ this.centerCircleSize }" fill="${ this.centerCircleColor }" stroke="#222222" style="stroke-width:2px"/>
             </svg>`;
     }
 
     setElements() {
         this.spinnerGroup = document.querySelector(`[data-guid='${ this.guid }'] .spinner-group`);
+        this.spinnerArrow = document.querySelector(`[data-guid='${ this.guid }'] #spinner-arrow`);
+        this.spinnerCenter = document.querySelector(`[data-guid='${ this.guid }'] #spinner-center`);
     }
 
     renderSections() {
@@ -149,6 +154,8 @@ class Spinnable {
 
     setEventListeners() {
         this.spinnerGroup.addEventListener('click', this.rotateSpinner.bind(this));
+        this.spinnerArrow.addEventListener('click', this.rotateSpinner.bind(this));
+        this.spinnerCenter.addEventListener('click', this.rotateSpinner.bind(this));
     }
 
     setTransition() {
