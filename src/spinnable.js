@@ -105,7 +105,7 @@ class Spinnable {
         x2 = parseInt(Math.round((this.size / 2) * Math.cos(Math.PI * (360 * percentOfWhole) / 180)))
         y2 = parseInt(Math.round((this.size / 2) * Math.sin(Math.PI * (360 * percentOfWhole) / 180)))
 
-        let d = 'M0,0  L' + x1 + ',' + y1 + `  A${ this.trueSize / 2 },${ this.trueSize / 2 } 0 ` +
+        let d = 'M0,0  L' + x1 + ',' + y1 + `  A${ this.size / 2 },${ this.size / 2 } 0 ` +
         (((360 * percentOfWhole) - 0 > 180) ? 1 : 0) + ',1 ' + x2 + ',' + y2 + ' z'
 
         return { datum, startAngle, endAngle, d, color: this.colors[index] }

@@ -1,0 +1,25 @@
+{
+  "name": "spinnable",
+  "version": "1.0.0",
+  "description": "Easy Spinners",
+  "main": "spinnable.js",
+  "dependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/jcquinlan/spinnable"
+  },
+  "author": "James Quinlan",
+  "license": "MIT"
+}
